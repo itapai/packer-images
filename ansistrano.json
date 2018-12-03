@@ -1,0 +1,35 @@
+{
+  "builders": [
+    {
+      "type": "docker",
+      "image": "alpine",
+      "commit": true,
+      "run_command": [
+        "-d",
+        "-i",
+        "-t",
+        "{{.Image}}",
+        "/bin/sh"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apk add ansible",
+        "ansible-galaxy install --force ansistrano.deploy ansistrano.rollback",
+        "rm -rf /var/cache/apk/*"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "itapai/ansistrano",
+        "tag": "latest"
+      }
+    ]
+  ]
+}
