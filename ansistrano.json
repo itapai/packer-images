@@ -17,7 +17,7 @@
     {
       "type": "shell",
       "inline": [
-        "apk update && apk add bash ansible openssh-client",
+        "apk update && apk add bash ansible rsync openssh-client",
         "ansible-galaxy install --force ansistrano.deploy ansistrano.rollback",
         "rm -rf /var/cache/apk/*"
       ]
